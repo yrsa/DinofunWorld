@@ -1,10 +1,10 @@
 %% Read data
 %Timestamp (%{yyyy-MM-dd HH:mm:ss})D, id(%d), type(%C), X(%d), Y(%d)
 formatSpec = '%{yyyy-MM-dd HH:mm:ss}D%d%C%d%d';
-
-load 'MatlabData/friday.mat';
-load 'MatlabData/saturday.mat';
-load 'MatlabData/sunday.mat';
+% 
+% load 'MatlabData/friday.mat';
+% load 'MatlabData/saturday.mat';
+% load 'MatlabData/sunday.mat';
 
 %% load park image
 parkmap = imread('Auxiliary Files/Park Map.jpg');
