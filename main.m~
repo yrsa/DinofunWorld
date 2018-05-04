@@ -1,7 +1,14 @@
 %% Read data
 %Timestamp (%{yyyy-MM-dd HH:mm:ss})D, id(%d), type(%C), X(%d), Y(%d)
 formatSpec = '%{yyyy-MM-dd HH:mm:ss}D%d%C%d%d';
+%M = readtable('MC1 Data June 2015 V3/park-movement-Fri-FIXED-2.0.csv','Delimiter',',', ...
+    %'Format',formatSpec);
+%saturday = readtable('data/park-movement-Sat.csv','Delimiter',',', ...
+ %   'Format',formatSpec);
 
+%sunday = readtable('data/park-movement-Sun.csv','Delimiter',',', ...
+ %   'Format',formatSpec); 
+ 
 %% load park image
 parkmap = imread('Auxiliary Files/Park Map.jpg');
 %imshow(parkmap) 
