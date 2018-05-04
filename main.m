@@ -13,16 +13,21 @@ parkmap = imread('Auxiliary Files/Park Map.jpg');
 %% sort sunday data on the rows
 sortedM = sortrows(sunday, 2);
 
+Ids = unique(sortedM.(2));
+
+%dsMale = hospital(hospital.Sex=='Male',:);
+p = sortedM(sortedM.id == Ids(2110),:);
+
 %%
 %Flip the image upside down before showing it
 imagesc([min(sortedM.(4)) max(sortedM.(4))], [min(sortedM.(5)) max(sortedM.(5))], flip(parkmap, 1));
  
 hold on;
-plot(sortedM.(4)(2:1481),sortedM.(5)(2:1481),'b-*','linewidth',1.5);
+plot(p.(4),p.(5),'b-','linewidth',1.5);
  
 % set the y-axis back to normal.
 set(gca,'ydir','normal');
 
 
-%% Visa positionerna ovanpå kartan
+%% Visa positionerna ovanp? kartan
 %Source: http://www.peteryu.ca/tutorials/matlab/plot_over_image_background
