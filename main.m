@@ -18,7 +18,8 @@ sortedM = sortrows(sunday, 2);
 imagesc([min(sortedM.(4)) max(sortedM.(4))], [min(sortedM.(5)) max(sortedM.(5))], flip(parkmap, 1));
  
 hold on;
-plot(sortedM.(4)(2:1481),sortedM.(5)(2:1481),'b-*','linewidth',1.5);
+plot(sortedM.(4)(2:1481),sortedM.(5)(2:1481),'b-','linewidth',1.5); %436
+%plot(sortedM.(4)(1482:3377),sortedM.(5)(1482:3377),'b-','linewidth',1.5);   %878
  
 % set the y-axis back to normal.
 set(gca,'ydir','normal');
