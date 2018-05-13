@@ -26,14 +26,37 @@ Ids = unique(sortedM.(2)); % get a list of all unique ids
 g = GenerateSequences(Ids, Day);
 
 %% Select all other persons that follow the same sequence
-%groups = FindGroups(Ids, Day);
-seqs = g;
-for i=1:1ength(g)
-    for j=length(seqs):-1:i+1
-        if(CompareSequence(seqs{i},seqs{j}))
-            seqs{j} = [];
-        end
-    end
-end
+%
+% seqs = g;
+% 
+% for i=1:length(seqs)
+%     for j=length(seqs):-1:i+1
+%         if(CompareSequence(seqs{i},seqs{j}))
+%             seqs{j} = [];
+%         end
+%     end
+% end
+% sequences = seqs(~cellfun('isempty',seqs));
 
+%%
+%groups = FindGroups(sequences, Ids, Day);
+load sequences.mat;
+table = CreateSeqTable(Ids, Day);
+
+s = sortrows(table, 2);
+
+s = unique(s.(2));
+
+%%
+
+groups = cell(length(sequences), 1);
+
+for i = 1:length(sequences)
+    seq = sequences(i);
+    stringseq = mat2str(cell2mat(seq{1}));
+
+    %sortedM(p.type == 'check-in',:); 
+    group = table(strcmp(table.sequence, stringseq),:);
+    groups{i} = group;
+end
 

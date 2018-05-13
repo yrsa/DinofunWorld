@@ -45,9 +45,6 @@ for i=1:length(ids)
 end
 seq_table(1,:) = [];
 
-%s = sortrows(table, 2);
-
-sequences = unique(s.(2));
 
 
 
