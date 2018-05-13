@@ -47,8 +47,7 @@ seq_table(1,:) = [];
 
 %s = sortrows(table, 2);
 
-sequences = unique(s.(2));
-
+sequences = unique(seq_table.(2));
 
 
 %sequences = unique(sequences, 'rows');
