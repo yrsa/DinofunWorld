@@ -16,11 +16,11 @@ sortedM = sortrows(M, 2);
 
 Ids = unique(sortedM.(2));
 
-p = sortedM(sortedM.id == group(1),:);         %change here if you want another person    %friday, id(19)
-q = sortedM(sortedM.id == group(2),:);
-q2 = sortedM(sortedM.id == group(3),:);
-q3 = sortedM(sortedM.id == group(4),:);
-q4 = sortedM(sortedM.id == group(5),:);
+p = sortedM(sortedM.id == 534277,:);         %change here if you want another person    %friday, id(19)
+q = sortedM(sortedM.id == 1093721,:);
+% q2 = sortedM(sortedM.id == group(3),:);
+% q3 = sortedM(sortedM.id == group(4),:);
+% q4 = sortedM(sortedM.id == group(5),:);
 
 c = sortedM(p.type == 'check-in',:); 
 
@@ -47,9 +47,9 @@ hold on;
 for i=1:psize
     plot(p.(4)(1:i),p.(5)(1:i),'b-','linewidth',1.5);
     plot(q.(4)(1:i),q.(5)(1:i),'g-','linewidth',1.5);
-    plot(q2.(4)(1:i),q.(5)(1:i),'m-','linewidth',1.5);
-    plot(q3.(4)(1:i),q.(5)(1:i),'c-','linewidth',1.5);
-    plot(q4.(4)(1:i),q.(5)(1:i),'y-','linewidth',1.5);
+%     plot(q2.(4)(1:i),q.(5)(1:i),'m-','linewidth',1.5);
+%     plot(q3.(4)(1:i),q.(5)(1:i),'c-','linewidth',1.5);
+%     plot(q4.(4)(1:i),q.(5)(1:i),'y-','linewidth',1.5);
     pause(0.1);
 end
 
