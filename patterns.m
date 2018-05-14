@@ -19,18 +19,22 @@ groups = [fri_groups; sat_groups; sun_groups];
 % large_group_sat = FindLargeGroup(sat_groups, 12);
 % large_group_sun = FindLargeGroup(sun_groups, 12);
 
-%%
-% 
-% w = large_group_fri.(1);
-% e = w(1,1);
-% ids = e{1}.id;
-% ids = cell2mat(ids);
-% cl = friday(friday.id == ids(1),:);
-% 
-% seq = e{1}.sequence;
-% seq = seq{1};
-% 
-% AttractionSequence(seq, attractions)
+%% Try clustering using k-means
+load attractions.mat
+
+person = friday(friday.id == 534277,:);
+ PlotPath(friday, person);
+
+% parkmap = imread('Auxiliary Files/Park Map.jpg');
+% figure
+% % set(gca,'Ydir','Normal')
+% imagesc([0 max(friday.(4))], [0 max(friday.(5))],parkmap);
+% axis xy
+
+% hold on;
+% plot(person.(4)(1:50),person.(5)(1:50),'m-','linewidth',1.5);
+%f = table2array(friday);
+%[idx, clusters] = kmeans(f, 12);
 
 
 
