@@ -68,16 +68,31 @@ fri_checkins = friday(friday.type == 'check-in',[1 4:5]);
 sat_checkins = saturday(saturday.type == 'check-in',[1 4:5]); 
 sun_checkins = sunday(sunday.type == 'check-in',[1 4:5]); 
 
+%% Create a histogram for one attraction to showcase when most people check in
+day = fri_checkins;
+attraction1 = attractions(26,:);
+x = attraction1.xpos;
+y = attraction1.ypos;
+
+f = fri_checkins(day.X == x & day.Y == y, :);
+
+time_axis = f.Timestamp;
+
+bin = length(time_axis);
+
+histogram(time_axis,bin);
+title(strcat(attraction1.name, " (", num2str(attraction1.attrNr), ")"));
+
 % sortrows(friche, 2);
 %pos_formated = zeros
-for i=1:height(fri_checkins)
-    position = fri_checkins(i,2:3);
-    x = position.X;
-    y = position.Y;
-    pos_str = strcat(num2str(x), " ", num2str(y));
-    
-    pos_formated(i) = pos_str;
-
-end
-
+% for i=1:height(fri_checkins)
+%     position = fri_checkins(i,2:3);
+%     x = position.X;
+%     y = position.Y;
+%     pos_str = strcat(num2str(x), " ", num2str(y));
+%     
+%     pos_formated(i) = pos_str;
+% 
+% end
+% 
 
