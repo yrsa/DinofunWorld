@@ -3,7 +3,6 @@
 % formatSpec = '%{yyyy-MM-dd HH:mm:ss}D%d%C%d%d';
 
 % formatSpec = '%{yyyy-MM-dd HH:mm:ss}D%d%C%d%d';
->>>>>>> Yrsa
 % 
 load 'MatlabData/friday.mat';
 load 'MatlabData/saturday.mat';
@@ -149,4 +148,31 @@ set(gca,'ydir','normal');
 %% Might want to read this:
 % Visually driven analysis of movement data by progressive clustering
 % https://pdfs.semanticscholar.org/193f/048ae443b1559bc23195738917b65caa730b.pdf
+
+%% Does a person visit the park more days than one?
+F = friday;
+sortedF = sortrows(F, 2);
+FIds = unique(sortedF.(2));     % All unique ids during Friday
+
+Sat = saturday;
+sortedSat = sortrows(Sat, 2);
+SatIds = unique(sortedSat.(2)); % All unique ids during Saturday
+
+Sun = sunday;
+sortedSun = sortrows(Sun, 2);
+SunIds = unique(sortedSun.(2)); % All unique ids during Sunday
+
+allIds = [FIds; SatIds; SunIds];
+allUniqueIds = unique(allIds);      % conclusion -> there are people coming back.
+
+% Which Ids are coming back?
+FriSat = intersect(FIds,SatIds);    % Visits both Friday and Saturday
+FriSun = intersect(FIds, SunIds);   % Visists both Friday and Sunday
+SatSun = intersect(SatIds, SunIds); % Visits both Saturday and Sunday
+FriSatSun = intersect(FriSat, FriSun);   %Visits Friday, Saturday and Sunday
+
+wholeWeekend = isequal(FriSun, FriSatSun);   %There are none that only visits the park friday and sunday
+
+onlyFriSat = setdiff(FriSat, SatSun);       %returns what is in FriSay but not in SatSun
+onlySatSun = setdiff(SatSun, FriSat);       %returns what is in SatSun but not in FriSat
 
