@@ -21,9 +21,12 @@ w = large_group_fri.(1);
 e = w(1,1);
 ids = e{1}.id;
 ids = cell2mat(ids);
-
 cl = friday(friday.id == ids(1),:);
 
+seq = e{1}.sequence;
+seq = seq{1};
+
+AttractionSequence(seq, attractions)
 
 
 
