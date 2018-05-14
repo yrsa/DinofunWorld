@@ -4,8 +4,9 @@ function [] = AttractionSequence(seq, attractions)
 evaluated_seq = eval(seq);
 
 for i = 1:length(evaluated_seq)
-    st = strcat(num2str(evaluated_seq(i,1)), " ", num2str(evaluated_seq(i,2)));
-    ride = attractions(strcmp(attractions.pos, st),:)
+
+%     st = strcat(num2str(evaluated_seq(i,1)), " ", num2str(evaluated_seq(i,2)));
+    ride = attractions(attractions.xpos == evaluated_seq(i,1) && attractions.ypos == evaluated_seq(i,2),:)
     
 end
 

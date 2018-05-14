@@ -3,7 +3,6 @@
 % formatSpec = '%{yyyy-MM-dd HH:mm:ss}D%d%C%d%d';
 
 % formatSpec = '%{yyyy-MM-dd HH:mm:ss}D%d%C%d%d';
->>>>>>> Yrsa
 % 
 load 'MatlabData/friday.mat';
 load 'MatlabData/saturday.mat';
@@ -149,4 +148,3 @@ set(gca,'ydir','normal');
 %% Might want to read this:
 % Visually driven analysis of movement data by progressive clustering
 % https://pdfs.semanticscholar.org/193f/048ae443b1559bc23195738917b65caa730b.pdf
-
