@@ -62,9 +62,7 @@ for i = 1:friGroupSize
     end
 end
 
-
-
-
+disp("done");
 
 % M = saturday;
 % sortedM = sortrows(M, 2);
@@ -72,3 +70,59 @@ end
 % p = sortedM(sortedM.id == 619064,:);
 % PlotPath(saturday, p)
 % 
+
+%% Save a group for each attraction that is most visited + undefined
+
+% personType = "Entry-goer"
+% personType = "Thrill-junkie";
+% personType = "Kiddie";
+% personType = "Show-goer";
+% personType = "Help-seeker";
+% personType = "For everyones";
+% personType = "Park-hanger";
+% personType = "undefined";
+
+entryGoer = table;
+trhillJunkie = table;
+kiddie = table;
+showGoer = table;
+helpSeeker = table;
+forEveryones = table;
+parkHanger = table;
+undefined = table;
+
+for i = 1:friGroupSize
+    [smallGroupSize, ~] = size(FriTypeGroup{i,1});
+    for j = 1:smallGroupSize
+        attrGroup = FriTypeGroup{i,1}.(3)(j);
+        %attrGroup = cell2mat(attrGroup);
+        
+        if attrGroup == 'Entry-goer'
+            entryGoer = [entryGoer; FriTypeGroup{i,1}];
+            
+        elseif attrGroup == "Thrill-junkie"
+            thrillJunkie = [trhillJunkie; FriTypeGroup{i,1}];
+            
+        elseif attrGroup == "Kiddie"
+            kiddie = [kiddie; FriTypeGroup{i,1}];
+            
+        elseif attrGroup == "Show-goer"
+            showGoer = [showGoer; FriTypeGroup{i,1}];
+            
+        elseif attrGroup == "Help-seeker"
+            helpSeeker = [helpSeeker; FriTypeGroup{i,1}];
+        
+        elseif attrGroup == "For everyones"
+            forEveryones = [forEveryones; FriTypeGroup{i,1}];
+        
+        elseif attrGroup == "Park-hanger"
+            parkHanger = [parkHanger; FriTypeGroup{i,1}];
+         
+        elseif attrGroup == "undefined"
+            undefined = [undefined; FriTypeGroup{i,1}];
+        
+        end
+    end
+end
+
+

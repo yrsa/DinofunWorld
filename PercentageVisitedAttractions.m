@@ -36,7 +36,7 @@ function [personType] = PercentageVisitedAttractions(groupSequence, attractions)
 %     disp("Percentage Entry: " + percEntry);
 %     disp("Percentage Thrills: " + percThrills);
 %     disp("Percentage Kiddies: " + percKiddies);
-%     disp("Percentage Thrills for Everyone: " + percEveryone);
+%     disp("Percentage Rides for Everyone: " + percEveryone);
 %     disp("Percentage Shows: " + percShows);
 %     disp("Percentage Parks: " + percParks);
 %     disp("Percentage Information & Assistance: " + percInfoAssist);
@@ -44,6 +44,9 @@ function [personType] = PercentageVisitedAttractions(groupSequence, attractions)
     if percEntry > percThrills & percEntry > percKiddies & percEntry > percEveryone & ...
             percEntry > percShows & percEntry > percParks & percEntry > percInfoAssist
         personType = "Entry-goer";
+        disp("Number of rides: " + nrOfRides);
+        disp("Percentage Entry: " + percEntry);
+        disp("Percentage Rides for Everyone: " + percEveryone);
         
     elseif percThrills > percEntry & percThrills > percKiddies & percThrills > percEveryone & ...
             percThrills > percShows & percThrills > percParks & percThrills > percInfoAssist
@@ -52,6 +55,7 @@ function [personType] = PercentageVisitedAttractions(groupSequence, attractions)
     elseif percKiddies > percEntry & percKiddies > percThrills & percKiddies > percEveryone & ...
             percKiddies > percShows & percKiddies > percParks & percKiddies > percInfoAssist
         personType = "Kiddie";
+        
     elseif percShows > percEntry & percShows > percThrills & percShows > percEveryone & ...
             percShows > percKiddies & percShows > percParks & percShows > percInfoAssist
         personType = "Show-goer";
