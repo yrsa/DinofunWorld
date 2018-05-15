@@ -9,21 +9,36 @@ load 'fri_groups.mat';
 load 'sat_groups.mat';
 load 'sun_groups.mat';
 
+%%
+groups = [fri_groups; sat_groups; sun_groups];
+
+
 %% Find all large groups with more than 12 people
 
-large_group_fri = FindLargeGroup(fri_groups, 12);
-large_group_sat = FindLargeGroup(sat_groups, 12);
-large_group_sun = FindLargeGroup(sun_groups, 12);
+% large_group_fri = FindLargeGroup(fri_groups, 12);
+% large_group_sat = FindLargeGroup(sat_groups, 12);
+% large_group_sun = FindLargeGroup(sun_groups, 12);
 
-%%
+%% PlotPath.
+% load attractions.mat
+% 
+% person = friday(friday.id == 534277,:);
+%  PlotPath(friday, person);
 
-w = large_group_fri.(1);
-e = w(1,1);
-ids = e{1}.id;
-ids = cell2mat(ids);
+%% Try adding the sequences containing the same rides into 1 table.
+% End result:
+% friday groups: 982 -> 972
+% saturday groups: 1917->1901
+% sunday groups: 2661 -> 2619
+% total: minus 68 groups
 
-cl = friday(friday.id == ids(1),:);
+% f = GatherGroupsByLocations(fri_groups);
+% f = f(~cellfun('isempty',f));
+% fri_condensed = f;
+% sat_condensed = GatherGroupsByLocations(sat_groups);
+% sun_condensed = GatherGroupsByLocations(sun_groups);
 
-
-
+% save('fri_condensed.mat', 'fri_condensed');
+% save('sat_condensed.mat', 'sat_condensed');
+% save('sun_condensed.mat', 'sun_condensed');
 
