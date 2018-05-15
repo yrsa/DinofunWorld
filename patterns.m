@@ -19,22 +19,26 @@ groups = [fri_groups; sat_groups; sun_groups];
 % large_group_sat = FindLargeGroup(sat_groups, 12);
 % large_group_sun = FindLargeGroup(sun_groups, 12);
 
-%% Try clustering using k-means
-load attractions.mat
+%% PlotPath.
+% load attractions.mat
+% 
+% person = friday(friday.id == 534277,:);
+%  PlotPath(friday, person);
 
-person = friday(friday.id == 534277,:);
- PlotPath(friday, person);
+%% Try adding the sequences containing the same rides into 1 table.
+% End result:
+% friday groups: 982 -> 972
+% saturday groups: 1917->1901
+% sunday groups: 2661 -> 2619
+% total: minus 68 groups
 
-% parkmap = imread('Auxiliary Files/Park Map.jpg');
-% figure
-% % set(gca,'Ydir','Normal')
-% imagesc([0 max(friday.(4))], [0 max(friday.(5))],parkmap);
-% axis xy
+% f = GatherGroupsByLocations(fri_groups);
+% f = f(~cellfun('isempty',f));
+% fri_condensed = f;
+% sat_condensed = GatherGroupsByLocations(sat_groups);
+% sun_condensed = GatherGroupsByLocations(sun_groups);
 
-% hold on;
-% plot(person.(4)(1:50),person.(5)(1:50),'m-','linewidth',1.5);
-%f = table2array(friday);
-%[idx, clusters] = kmeans(f, 12);
-
-
+% save('fri_condensed.mat', 'fri_condensed');
+% save('sat_condensed.mat', 'sat_condensed');
+% save('sun_condensed.mat', 'sun_condensed');
 
