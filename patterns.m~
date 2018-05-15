@@ -48,21 +48,12 @@ groups = [fri_groups; sat_groups; sun_groups];
 
 % get one group
 FriTypeGroup = fri_condensed;       % copy to later add personType
-%FriTypeGroup.personType = "";
-[friGroupSize, ~] = size(fri_condensed);
+[friGroupSize, ~] = size
 
-for i = 1:friGroupSize
-    [smallGroupSize, ~] = size(fri_condensed{i,1});
-    for j = 1:smallGroupSize
-        friGroup = fri_condensed{i,1}.(2)(j);
-        friGroup = cell2mat(friGroup);
-        
-        personType = PercentageVisitedAttractions(friGroup, attractions);
-        FriTypeGroup{i,1}.personType(j) = personType;
-    end
-end
+friGroup = fri_condensed{1,1}.(2)(1);
+friGroup = cell2mat(friGroup);
 
-
+personType = PercentageVisitedAttractions(friGroup, attractions);
 
 
 
