@@ -18,25 +18,23 @@ sortedM = sortrows(M, 2);
 
 Ids = unique(sortedM.(2));
 
-p = sortedM(sortedM.id == 415491,:);
+p = sortedM(sortedM.id == 657863,:);
 q = sortedM(sortedM.id == 103006,:);%change here if you want another person    %friday, id(19)
-q2 = sortedM(sortedM.id == 313073,:);
-q3 = sortedM(sortedM.id == 1412235,:);
-q4 = sortedM(sortedM.id == 1937834,:);
-% figure
+q2 = sortedM(sortedM.id == ,:);
+q3 = sortedM(sortedM.id == group(4),:);
+q4 = sortedM(sortedM.id == group(5),:);
+figure
 
-%  subplot(1,2,1), PlotPath(friday, p);
+% subplot(1,2,1), PlotPath(friday, p);
 % subplot(1,2,2), PlotPath(friday, q);
 
 atr = sortrows(attractions, 3);
 
 
 
-subplot(2,3,1), plot(p.Timestamp, p.Y, 'b');
-subplot(2,3,2),plot(q.Timestamp, q.Y, 'r');
-subplot(2,3,3),plot(q2.Timestamp, q2.Y, 'c');
-subplot(2,3,4),plot(q3.Timestamp, q3.Y, 'g');
-subplot(2,3,5),plot(q4.Timestamp, q4.Y, 'm');
+plot(p.Timestamp, p.Y);
+figure
+plot(q.Timestamp, q.Y);
 
 c = sortedM(p.type == 'check-in',:); 
 

@@ -10,8 +10,7 @@ load 'sat_groups.mat';
 load 'sun_groups.mat';
 
 %%
-groups = [fri_groups; sat_groups; sun_groups];
-
+groups1 = [fri_groups; sat_groups; sun_groups];
 
 %% Find all large groups with more than 12 people
 
@@ -41,4 +40,32 @@ groups = [fri_groups; sat_groups; sun_groups];
 % save('fri_condensed.mat', 'fri_condensed');
 % save('sat_condensed.mat', 'sat_condensed');
 % save('sun_condensed.mat', 'sun_condensed');
+
+%% Study the timestamp to categorize events
+day = friday;
+timeline = day.Timestamp;
+timeline = sortrows(timeline, 1);
+
+last = length(timeline);
+
+starttime = timeline(1,:);
+endtime = timeline(last,:);
+
+timeline = unique(timeline);
+
+% PlotEvent(t, friday);
+% for i=1:length(timeline)
+%     t = timeline(i);
+%     PlotEvent(t, friday);
+%     pause(0.1);
+% end
+
+%% Apriori implmentation
+%itemset = rides (check in points)
+% 1. Start with itemset containing only one check in point
+load attractions.mat;
+itemsets = attractions(:,3:5);
+
+
+
 
