@@ -84,9 +84,9 @@ imagesc([0 100], [0 100], flip(parkmap, 1));
 hold on;
 
 % Plot everything directly
-plot(fride.xpos, fride.ypos, 'bx','MarkerSize',10);
-plot(satride.xpos, satride.ypos, 'go','MarkerSize',10);
-plot(sunride.xpos, sunride.ypos, 'm+','MarkerSize',10);
+plot(fride.xpos, fride.ypos, 'bx','linewidth',1.5);
+plot(satride.xpos, satride.ypos, 'go','linewidth',1.5);
+plot(sunride.xpos, sunride.ypos, 'rl','linewidth',1.5);
 
 %end
 
