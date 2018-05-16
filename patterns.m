@@ -21,7 +21,7 @@ itemsets = [itemsets times_visited];
 ids = friday.id;
 ids = unique(ids);
 
-% seq_table = CreateSeqTable(ids, friday);
+%  seq_table = CreateSeqTable(ids, friday);
 
 person = seq_table(1,:);
 
@@ -34,11 +34,21 @@ for i=1:height(attractions)
     
     for j=1:length(seq)
         if(seq(j,:) == pos)
-            itemsets(i,:){4} = itemsets(i,:){4}+1;
+            val = itemsets.times_visited(i);
+             itemsets.times_visited(i) = val +1;
+%             temp_set = itemsets(i,:)
+%             temp_set{42, 5} = 5;
+%             temp_set{1,4} = {temp_set.times_visited{1} + 1}
+%             itemsets(i,:){4} = itemsets(i,:){4}+1;
         end
     end
     
 end
+
+%%
+small_seq_table = seq_table(1:1000,:);
+
+items = Apriori(small_seq_table);
 
 %% Try adding the sequences containing the same rides into 1 table.
 % End result:
