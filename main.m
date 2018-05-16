@@ -25,7 +25,7 @@ q3 = sortedM(sortedM.id == 1412235,:);
 q4 = sortedM(sortedM.id == 1937834,:);
 % figure
 
-%  subplot(1,2,1), PlotPath(friday, p);
+PlotPath(friday, p);
 % subplot(1,2,2), PlotPath(friday, q);
 
 atr = sortrows(attractions, 3);

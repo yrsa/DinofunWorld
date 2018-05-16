@@ -9,20 +9,36 @@ load 'fri_groups.mat';
 load 'sat_groups.mat';
 load 'sun_groups.mat';
 
-%%
-groups1 = [fri_groups; sat_groups; sun_groups];
+%% Apriori implmentation
+%itemset = rides (check in points)
+% 1. Start with itemset containing only one check in point
+load attractions.mat;
+itemsets = attractions(:,3:5);
+times_visited = zeros(height(itemsets), 1);
+times_visited = array2table(times_visited);
+itemsets = [itemsets times_visited];
+%% 
+ids = friday.id;
+ids = unique(ids);
 
-%% Find all large groups with more than 12 people
+% seq_table = CreateSeqTable(ids, friday);
 
-% large_group_fri = FindLargeGroup(fri_groups, 12);
-% large_group_sat = FindLargeGroup(sat_groups, 12);
-% large_group_sun = FindLargeGroup(sun_groups, 12);
+person = seq_table(1,:);
 
-%% PlotPath.
-% load attractions.mat
-% 
-% person = friday(friday.id == 534277,:);
-%  PlotPath(friday, person);
+seq = person.sequence{1};
+seq = eval(seq);
+
+for i=1:height(attractions)
+    a = attractions(i,3:5);
+    pos = table2array(a(:,1:2));
+    
+    for j=1:length(seq)
+        if(seq(j,:) == pos)
+            itemsets(i,:){4} = itemsets(i,:){4}+1;
+        end
+    end
+    
+end
 
 %% Try adding the sequences containing the same rides into 1 table.
 % End result:
@@ -41,30 +57,6 @@ groups1 = [fri_groups; sat_groups; sun_groups];
 % save('sat_condensed.mat', 'sat_condensed');
 % save('sun_condensed.mat', 'sun_condensed');
 
-%% Study the timestamp to categorize events
-day = friday;
-timeline = day.Timestamp;
-timeline = sortrows(timeline, 1);
-
-last = length(timeline);
-
-starttime = timeline(1,:);
-endtime = timeline(last,:);
-
-timeline = unique(timeline);
-
-% PlotEvent(t, friday);
-% for i=1:length(timeline)
-%     t = timeline(i);
-%     PlotEvent(t, friday);
-%     pause(0.1);
-% end
-
-%% Apriori implmentation
-%itemset = rides (check in points)
-% 1. Start with itemset containing only one check in point
-load attractions.mat;
-itemsets = attractions(:,3:5);
 
 
 
