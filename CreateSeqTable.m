@@ -3,7 +3,7 @@ function [seq_table] = CreateSeqTable(ids, data)
 %   Creates a table containing the checkin sequences for all people
 
 %sequences = cell(length(ids), 1);
-headers = {'id' 'sequence'};
+headers = {'id', 'sequence'};
 d = cell(1, 2);
 seq_table = cell2table(d);
 seq_table.Properties.VariableNames = headers;

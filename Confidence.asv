@@ -10,12 +10,7 @@ for i = 1:height(configurations)
     for j = 2:length(names)-1
         a = strcat(a, names(j)); % add the other rides except the last
     end
-    b = names(length(names)); % the last ride in the combination.
-    
-    %find the support for a
-    a_row = itemsets(strcmp(itemsets.name, a));
-    a_support = a_row.support(1);
-    
+    b = names(length(names)); % the last ride in the combin
 
 
 end

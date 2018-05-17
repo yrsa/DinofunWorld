@@ -21,34 +21,36 @@ itemsets = [itemsets times_visited];
 ids = friday.id;
 ids = unique(ids);
 
-%  seq_table = CreateSeqTable(ids, friday);
+seq_table = CreateSeqTable(ids, friday);
 
 person = seq_table(1,:);
 
-seq = person.sequence{1};
-seq = eval(seq);
-
-for i=1:height(attractions)
-    a = attractions(i,3:5);
-    pos = table2array(a(:,1:2));
-    
-    for j=1:length(seq)
-        if(seq(j,:) == pos)
-            val = itemsets.times_visited(i);
-             itemsets.times_visited(i) = val +1;
-%             temp_set = itemsets(i,:)
-%             temp_set{42, 5} = 5;
-%             temp_set{1,4} = {temp_set.times_visited{1} + 1}
-%             itemsets(i,:){4} = itemsets(i,:){4}+1;
-        end
-    end
-    
-end
+% seq = person.sequence{1};
+% seq = eval(seq);
+% 
+% for i=1:height(attractions)
+%     a = attractions(i,3:5);
+%     pos = table2array(a(:,1:2));
+%     
+%     for j=1:length(seq)
+%         if(seq(j,:) == pos)
+%             val = itemsets.times_visited(i);
+%              itemsets.times_visited(i) = val +1;
+% %             temp_set = itemsets(i,:)
+% %             temp_set{42, 5} = 5;
+% %             temp_set{1,4} = {temp_set.times_visited{1} + 1}
+% %             itemsets(i,:){4} = itemsets(i,:){4}+1;
+%         end
+%     end
+%     
+% end
 
 %%
-small_seq_table = seq_table(1:1000,:);
+% small_seq_table = seq_table(1:1000,:);
 
-items = Apriori(small_seq_table);
+%  items = Apriori(small_seq_table);
+ items_config = ComputeConfigurations(items);
+Confidence(items, items_config);
 
 %% Try adding the sequences containing the same rides into 1 table.
 % End result:

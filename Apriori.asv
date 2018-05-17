@@ -3,7 +3,7 @@ function [itemsets] = Apriori(seq_table)
 %data
 
 load attractions.mat;
-itemsets = attractions(:,5);
+itemsets = attractions(:,3:5);
 times_visited = zeros(height(itemsets), 1);
 times_visited = array2table(times_visited);
 itemsets = [itemsets times_visited];
@@ -40,7 +40,7 @@ to_remove = itemsets.support < threshold;
 itemsets(to_remove, :) = [];
 
 % now compute the different combinations of items
-% config = ComputeConfiguration(itemsets);
+config = ComputeConfiguration(itme)
 
 
 end
