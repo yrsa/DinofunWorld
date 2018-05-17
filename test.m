@@ -10,7 +10,7 @@ ids = unique(ids);
 nr_ids = length(ids);
 
 % %% Create a sequence table
- seq_table = CreateSeqTable(ids,data);
+%  seq_table = CreateSeqTable(ids,data);
 
 %%
 % e = Apriori(seq_table);
@@ -24,13 +24,14 @@ itemsets1.Properties.VariableNames = {'name'};
 
 
 %% calculate the support for each item.
+
 times_visited = zeros(height(itemsets1), 1);
 support = zeros(height(itemsets1),1); % array to store supports
 
 
 for i=1:height(itemsets1)
     item = itemsets1.name(i);
-    [t, s] = Support(item, seq_table); %calculate support one item at a time 
+    [t, s] = Support2(item, seq_table); %calculate support one item at a time 
     times_visited(i) = t;
     support(i) = s;
 end
@@ -40,14 +41,14 @@ times_visited = array2table(times_visited);
 support = array2table(support);
 itemsets1 = [itemsets1 times_visited support];
 
-%% Remove items that do not meet the treshold
+% Remove items that do not meet the treshold
 threshold = 0.5;
 delete = itemsets1.support < threshold;
 itemsets1(delete,:) = [];
 
 %% Calculate the new itemsets from the combinations
 
-headers = {'names'};
+headers = {'name'};
 d = cell(1,1);
 combinations = cell2table(d);
 combinations.Properties.VariableNames = headers;
@@ -71,18 +72,27 @@ end
 combinations(1,:) = []; %delete the empty row.
 
 %% calculate confidence
-
+confidence = zeros(height(combinations), 1);
 for i=1:height(combinations)
     combo = combinations.names(i);
     combo = combo{1};
     [row ~] = size(combo);
     
-    A = combo(1:row-1,:);
-    B = combo(row,:);
+    A = combo; %all items
+    B = combo(1:row-1,:); %all items except the last
     
     %find support
+    [A_times_visited, A_support] = Support2(A, seq_table);
+    [B_times_visited, B_support] = Support2(B, seq_table);
     
+    confidence(i) = A_support / B_support;
     
 end
+confid = Confidence(combinations, seq_table);
+
+%% Calculate lift
+
+
+
 
 
