@@ -52,7 +52,7 @@ FriTypeGroup = fri_condensed;       % copy to later add personType
 [friGroupSize, ~] = size(fri_condensed);
 
 for i = 1:friGroupSize
-    [smallGroupSize, ~] = size(fri_condensed{i,1});
+    [smallGroupSize, ~] = size(FriTypeGroup{i,1});
     for j = 1:smallGroupSize
         friGroup = fri_condensed{i,1}.(2)(j);
         friGroup = cell2mat(friGroup);
@@ -62,8 +62,6 @@ for i = 1:friGroupSize
     end
 end
 
-disp("done");
-
 % M = saturday;
 % sortedM = sortrows(M, 2);
 % Ids = unique(sortedM.(2));
@@ -72,15 +70,6 @@ disp("done");
 % 
 
 %% Save a group for each attraction that is most visited + undefined
-
-% personType = "Entry-goer"
-% personType = "Thrill-junkie";
-% personType = "Kiddie";
-% personType = "Show-goer";
-% personType = "Help-seeker";
-% personType = "For everyones";
-% personType = "Park-hanger";
-% personType = "undefined";
 
 entryGoer = table;
 trhillJunkie = table;
@@ -97,7 +86,7 @@ for i = 1:friGroupSize
         attrGroup = FriTypeGroup{i,1}.(3)(j);
         %attrGroup = cell2mat(attrGroup);
         
-        if attrGroup == 'Entry-goer'
+        if attrGroup == "Entry-goer"
             entryGoer = [entryGoer; FriTypeGroup{i,1}];
             
         elseif attrGroup == "Thrill-junkie"
@@ -125,4 +114,62 @@ for i = 1:friGroupSize
     end
 end
 
+%% Find all people that check into the park more than ones
+entryPeople = table;
+entryTemp = table;
+
+checkGroup = fri_condensed;       % copy to later add personType
+[groupSize, ~] = size(checkGroup);
+
+for i = 1:groupSize
+    [smallGroupSize, ~] = size(checkGroup{i,1});
+    for j = 1:(smallGroupSize)          % why did I have (smallGroupSize - 1) here?
+        groupie = fri_condensed{i,1}.(2)(j);
+        groupie = cell2mat(groupie);
+        
+        rides = AttractionSequence2(groupie, attractions);
+        %personType = PercentageVisitedAttractions(groupie, attractions);
+        entries = rides(rides.type == 'Entry',:);
+        
+        if (height(entries) > 1) || (height(entries) == 1 && height(rides) == 1) 
+            
+            entryTemp.id = FriTypeGroup{i,1}.(1)(j);
+            entryTemp.sequence = FriTypeGroup{i,1}.(2)(j);
+            entryTemp.personType = FriTypeGroup{i,1}.(3)(j);
+            entryPeople = [entryPeople; entryTemp];
+        end
+    end
+end
+
+%% Look att different entryPeople
+parkmap = imread('Auxiliary Files/Park Map.jpg');
+M = friday;
+sortedM = sortrows(M, 2);
+
+%p = sortedM(sortedM.id == cell2mat(entryPeople{16,1}),:);    %change person here
+%p = sortedM(sortedM.id == 521750,:);            % 521750 <-- spends time in 63 but never checks in?!
+p = sortedM(sortedM.id == 19162,:);
+c = p(p.type == 'check-in',:);
+
+imagesc([0 max(sortedM.(4))], [0 max(sortedM.(5))], flip(parkmap, 1)); 
+hold on;
+
+[psize, ~] = size(p);
+
+% Plot in time
+% for i=1:psize
+%     plot(p.(4)(1:i),p.(5)(1:i),'b-','linewidth',1.5);
+% 
+%     % set the y-axis back to normal.
+%     set(gca,'ydir','normal');
+%     pause(0.1);
+% end
+plot(p.(4),p.(5),'b-','linewidth',1.5);
+plot(c.(4),c.(5),'g*','linewidth',1.5);
+
+set(gca,'ydir','normal');
+
+%%
+figure
+plot(p.Timestamp, p.X);
 

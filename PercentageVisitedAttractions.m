@@ -15,7 +15,7 @@ function [personType] = PercentageVisitedAttractions(groupSequence, attractions)
 
     % Procentage:
     [nrOfRides, ~] = size(rides);
-    [nrOfEntry, ~] = size(entry);       % not really necessary? 
+    [nrOfEntry, ~] = size(entry);       
     [nrOfThrills, ~] = size(thrills);
     [nrOfKiddies, ~] = size(kiddie);
     [nrOfEveryone, ~] = size(forEveryone);
@@ -41,38 +41,50 @@ function [personType] = PercentageVisitedAttractions(groupSequence, attractions)
 %     disp("Percentage Parks: " + percParks);
 %     disp("Percentage Information & Assistance: " + percInfoAssist);
 %     
-    if percEntry > percThrills & percEntry > percKiddies & percEntry > percEveryone & ...
-            percEntry > percShows & percEntry > percParks & percEntry > percInfoAssist
+    if percEntry > percThrills && percEntry > percKiddies && percEntry > percEveryone && ...
+            percEntry > percShows && percEntry > percParks && percEntry > percInfoAssist
         personType = "Entry-goer";
-        disp("Number of rides: " + nrOfRides);
-        disp("Percentage Entry: " + percEntry);
-        disp("Percentage Rides for Everyone: " + percEveryone);
+%         disp("Nr rides: " + nrOfRides);
+%         disp("Nr Entry: " + nrOfEntry);
+%         disp("Nr Ride for Everyone: " + nrOfEveryone);
+%         disp("Entry: " + percEntry);
+%         disp("Ride for Everyone: " + percEveryone);
+%         disp(" ");
+    %disp("EntryGoer");
         
-    elseif percThrills > percEntry & percThrills > percKiddies & percThrills > percEveryone & ...
-            percThrills > percShows & percThrills > percParks & percThrills > percInfoAssist
+    elseif percThrills > percEntry && percThrills > percKiddies && percThrills > percEveryone && ...
+            percThrills > percShows && percThrills > percParks && percThrills > percInfoAssist
         personType = "Thrill-junkie";
+        %disp("Thrill-Junkie")
         
-    elseif percKiddies > percEntry & percKiddies > percThrills & percKiddies > percEveryone & ...
-            percKiddies > percShows & percKiddies > percParks & percKiddies > percInfoAssist
+    elseif percKiddies > percEntry && percKiddies > percThrills && percKiddies > percEveryone && ...
+            percKiddies > percShows && percKiddies > percParks && percKiddies > percInfoAssist
         personType = "Kiddie";
+        %disp("kiddie")
         
-    elseif percShows > percEntry & percShows > percThrills & percShows > percEveryone & ...
-            percShows > percKiddies & percShows > percParks & percShows > percInfoAssist
+    elseif percShows > percEntry && percShows > percThrills && percShows > percEveryone && ...
+            percShows > percKiddies && percShows > percParks && percShows > percInfoAssist
         personType = "Show-goer";
+        %disp("showGoer")
         
-    elseif percInfoAssist > percEntry & percInfoAssist > percThrills & percInfoAssist > percEveryone & ...
-            percInfoAssist > percKiddies & percInfoAssist > percParks & percInfoAssist > percShows
+    elseif percInfoAssist > percEntry && percInfoAssist > percThrills && percInfoAssist > percEveryone && ...
+            percInfoAssist > percKiddies && percInfoAssist > percParks && percInfoAssist > percShows
         personType = "Help-seeker";
+        %disp("help-seeker")
         
-    elseif percEveryone > percEntry & percEveryone > percThrills & percEveryone > percInfoAssist & ...
-            percEveryone > percKiddies & percEveryone > percParks & percEveryone > percShows
+    elseif percEveryone > percEntry && percEveryone > percThrills && percEveryone > percInfoAssist && ...
+            percEveryone > percKiddies && percEveryone > percParks && percEveryone > percShows
         personType = "For everyones";
-    elseif percParks > percEntry & percParks > percThrills & percParks > percInfoAssist & ...
-            percParks > percKiddies & percParks > percEveryone & percParks > percShows
+        %disp("for everyones")
+               
+    elseif percParks > percEntry && percParks > percThrills && percParks > percInfoAssist && ...
+            percParks > percKiddies && percParks > percEveryone && percParks > percShows
         personType = "Park-hanger";
+        %disp("park-hanger")
     else
         personType = "undefined";
+        %disp("undefined")
     end
-
+    
 end
 

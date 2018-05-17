@@ -48,14 +48,19 @@ groups = [fri_groups; sat_groups; sun_groups];
 
 % get one group
 FriTypeGroup = fri_condensed;       % copy to later add personType
-[friGroupSize, ~] = size
+%FriTypeGroup.personType = "";
+[friGroupSize, ~] = size(fri_condensed);
 
-friGroup = fri_condensed{1,1}.(2)(1);
-friGroup = cell2mat(friGroup);
-
-personType = PercentageVisitedAttractions(friGroup, attractions);
-
-
+for i = 1:friGroupSize
+    [smallGroupSize, ~] = size(FriTypeGroup{i,1});
+    for j = 1:smallGroupSize
+        friGroup = fri_condensed{i,1}.(2)(j);
+        friGroup = cell2mat(friGroup);
+        
+        personType = PercentageVisitedAttractions(friGroup, attractions);
+        FriTypeGroup{i,1}.personType(j) = personType;
+    end
+end
 
 % M = saturday;
 % sortedM = sortrows(M, 2);
@@ -63,3 +68,117 @@ personType = PercentageVisitedAttractions(friGroup, attractions);
 % p = sortedM(sortedM.id == 619064,:);
 % PlotPath(saturday, p)
 % 
+
+%% Save a group for each attraction that is most visited + undefined
+
+entryGoer = table;
+trhillJunkie = table;
+kiddie = table;
+showGoer = table;
+helpSeeker = table;
+forEveryones = table;
+parkHanger = table;
+undefined = table;
+
+for i = 1:friGroupSize
+    [smallGroupSize, ~] = size(FriTypeGroup{i,1});
+    for j = 1:smallGroupSize
+        attrGroup = FriTypeGroup{i,1}.(3)(j);
+        %attrGroup = cell2mat(attrGroup);
+        
+        if attrGroup == "Entry-goer"
+            entryGoer = [entryGoer; FriTypeGroup{i,1}];
+            
+        elseif attrGroup == "Thrill-junkie"
+            thrillJunkie = [trhillJunkie; FriTypeGroup{i,1}];
+            
+        elseif attrGroup == "Kiddie"
+            kiddie = [kiddie; FriTypeGroup{i,1}];
+            
+        elseif attrGroup == "Show-goer"
+            showGoer = [showGoer; FriTypeGroup{i,1}];
+            
+        elseif attrGroup == "Help-seeker"
+            helpSeeker = [helpSeeker; FriTypeGroup{i,1}];
+        
+        elseif attrGroup == "For everyones"
+            forEveryones = [forEveryones; FriTypeGroup{i,1}];
+        
+        elseif attrGroup == "Park-hanger"
+            parkHanger = [parkHanger; FriTypeGroup{i,1}];
+         
+        elseif attrGroup == "undefined"
+            undefined = [undefined; FriTypeGroup{i,1}];
+        
+        end
+    end
+end
+
+%% Find all people that check into the park more than ones
+entryPeople = table;
+entryTemp = table;
+
+checkGroup = fri_condensed;       % copy to later add personType
+[groupSize, ~] = size(checkGroup);
+
+for i = 1:groupSize
+    [smallGroupSize, ~] = size(checkGroup{i,1});
+    for j = 1:(smallGroupSize)          % why did I have (smallGroupSize - 1) here?
+        groupie = fri_condensed{i,1}.(2)(j);
+        groupie = cell2mat(groupie);
+        
+        rides = AttractionSequence2(groupie, attractions);
+        %personType = PercentageVisitedAttractions(groupie, attractions);
+        entries = rides(rides.type == 'Entry',:);
+        
+        if (height(entries) > 1) || (height(entries) == 1 && height(rides) == 1) 
+            
+            entryTemp.id = FriTypeGroup{i,1}.(1)(j);
+            entryTemp.sequence = FriTypeGroup{i,1}.(2)(j);
+            entryTemp.personType = FriTypeGroup{i,1}.(3)(j);
+            entryPeople = [entryPeople; entryTemp];
+        end
+    end
+end
+
+%% Look att different entryPeople
+parkmap = imread('Auxiliary Files/Park Map.jpg');
+M = friday;
+sortedM = sortrows(M, 2);
+
+%p = sortedM(sortedM.id == cell2mat(entryPeople{16,1}),:);    %change person here
+%p = sortedM(sortedM.id == 521750,:);            % 521750 <-- spends time in 63 but never checks in?!
+p = sortedM(sortedM.id == 1412235,:);
+c = p(p.type == 'check-in',:);
+
+imagesc([0 max(sortedM.(4))], [0 max(sortedM.(5))], flip(parkmap, 1)); 
+hold on;
+
+[psize, ~] = size(p);
+
+% Plot in time
+% for i=1:psize
+%     plot(p.(4)(1:i),p.(5)(1:i),'b-','linewidth',1.5);
+% 
+%     % set the y-axis back to normal.
+%     set(gca,'ydir','normal');
+%     pause(0.1);
+% end
+plot(p.(4),p.(5),'b-','linewidth',1.5);
+plot(c.(4),c.(5),'g*','linewidth',1.5);
+
+set(gca,'ydir','normal');
+
+%%
+figure
+plot(p.Timestamp, p.Y);
+
+%% Okay, we want to find out who has been staying for some time at the Beer garden. How to do it?
+
+% Beer gardens position:
+% 21,33
+
+% Search all data and save those who have movement data that is more than
+% five at 21,33
+
+
