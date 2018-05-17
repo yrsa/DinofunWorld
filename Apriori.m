@@ -37,6 +37,16 @@ itemsets1 = [itemsets1 times_visited support];
 
 %% Remove items that do not meet the treshold
 threshold = 0.5;
-delete = itemsets1.support(itemsets1.support < threshold);
-itemsets1(delete,:) = []
+delete = itemsets1.support < threshold;
+itemsets1(delete,:) = [];
+
+%% Calculate the new itemsets from the combinations
+
+for i=1:height(itemsets1)-1
+    name1 = 1
+    for j=i+1:height(itemsets1)
+        
+    end
+end
+
 
