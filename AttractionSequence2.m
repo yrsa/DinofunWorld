@@ -4,7 +4,8 @@ function ride = AttractionSequence2(seq, attractions)
     evaluated_seq = eval(seq);
     ride = table;
    
-   if length(evaluated_seq) > 2
+   [row ~] = size(evaluated_seq);
+   if row > 1
          for i = 1:length(evaluated_seq)
 
             tempride = attractions(attractions.xpos == evaluated_seq(i,1) & attractions.ypos == evaluated_seq(i,2),:);

@@ -1,3 +1,7 @@
+load 'MatlabData/friday.mat';
+load 'MatlabData/saturday.mat';
+load 'MatlabData/sunday.mat';
+
 %% Okay, we want to find out who has been staying for some time at the Beer garden. How to do it?
 
 % This is not really doing as I want. I want to see if a person stays at a
@@ -33,35 +37,25 @@ counter = 1;
 
 % loop through c (with help from BeerGardenPeople
 [BGPsize, ~] = size(beerGardenPeople);
-%for j = 1:height(c)
- %   cId = c.(2)(j);
-    
-    for i = 1:BGPsize
 
-        % fetch the id
-        tempID = beerGardenPeople(i);
+for i = 1:BGPsize
 
-        tru = c(c.(2) == tempID,:);
-        counter = height(tru);
-        
-        tempBGPeople.id = tempID;
-        tempBGPeople.howLongStay = counter;
-        BGPeople = [BGPeople; tempBGPeople];
-        
-%         if tempID == cId
-%             counter = counter + 1;
-%         end
+    % fetch the id
+    tempID = beerGardenPeople(i);
 
-    end
-    
-%     tempBGPeople.id = cId;
-%     tempBGPeople.howLongStay = counter;
-% 
-% %    counter = 1;
-% 
-%     BGPeople = [BGPeople; tempBGPeople];
+    tru = c(c.(2) == tempID,:);
+    counter = height(tru);
 
-%end
+    tempBGPeople.id = tempID;
+    tempBGPeople.howLongStay = counter;
+    BGPeople = [BGPeople; tempBGPeople];
+
+end
+
+%%
+
+
+
 
 
 

@@ -53,7 +53,7 @@ sun941 = [69 2 31 29 6 81 5 6 4 2 28 7 5 3 8 4 24 5 29 2 1 7];
 % size(sun941)
 
 %hist(fri941, 87)
-hist(sat941, 87)
+%hist(sat941, 87)
 %hist(sun941, 87)
 
 % the histogram does not work as I want them to. Can we do this
@@ -68,7 +68,6 @@ satidSeq = satVisits.(2)(1);
 satidSeq = cell2mat(satidSeq);
 sunidSeq = sunVisits.(2)(1);
 sunidSeq = cell2mat(sunidSeq);
-
 
 idstr = idSeq{1};
 fride = AttractionSequence2(fridSeq, attractions);

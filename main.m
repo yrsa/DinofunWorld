@@ -42,35 +42,7 @@ hold off
 %histogram(A(:))        %% does it do what we want? Want to look at both X and Y, not only one
 histogram2(sortedD.(4), sortedD.(5))
 
-%% Lets find groups     <-- Does not work
-[MRows Mcols] = size(sortedM); 
-prevID = sortedM.(2)(1);
-positions(1,1) = [sortedM.(4)(1) sortedM.(5)(1)]; 
-
-% put in this person in the first slot
-
-% Go through all persons in a day
-for i = 2:MRows
-    tempID = sortedM.(2)(i);
-    thisPosition = [sortedM.(4)(i) sortedM.(5)(i)]
-    
-    if tempID == prevID
-        %put in next col
-        positions(i,1) = [positions, thisPosition]
-        
-    else % sortedM.(2)(is) ~= tempID        % this is same person
-        %put in next row
-    end
-    
-    prevID = tempID
-end
-
-% if .type == 'check-in' --> store in a vector
-    % as a string like in lab 3?
-
-% check if another person has the same vector
-
-%% New less messy try
+%% Lets find groups  
 
 % Get all IDs in the data
 Ids = unique(sortedM.(2));
