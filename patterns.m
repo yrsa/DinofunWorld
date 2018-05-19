@@ -47,22 +47,26 @@ groups = [fri_groups; sat_groups; sun_groups];
 
 %% Find which type of attractions one group goes to
 load('attractions.mat')
-load('fri_condensed.mat')
+load('sat_condensed.mat')
 
 % get one group
-FriTypeGroup = fri_condensed;       % copy to later add personType
+FriTypeGroup = sat_condensed;       % copy to later add personType
 %FriTypeGroup.personType = "";
-[friGroupSize, ~] = size(fri_condensed);
+[friGroupSize, ~] = size(sat_condensed);
 
 for i = 1:friGroupSize
     [smallGroupSize, ~] = size(FriTypeGroup{i,1});
     for j = 1:smallGroupSize
-        friGroup = fri_condensed{i,1}.(2)(j);
+        friGroup = sat_condensed{i,1}.(2)(j);
         
         friGroup = cell2mat(friGroup);
         
         personType = PercentageVisitedAttractions(friGroup, attractions);
-        FriTypeGroup{i,1}.personType(j) = personType;
+        if personType == ""
+            FriTypeGroup{i,1}.personType(j) = "somethingWrongWithThisOne";
+        else
+            FriTypeGroup{i,1}.personType(j) = personType;
+        end
     end
 end
 
@@ -166,7 +170,7 @@ sortedM = sortrows(M, 2);
 
 %p = sortedM(sortedM.id == cell2mat(entryPeople{16,1}),:);    %change person here
 %p = sortedM(sortedM.id == 521750,:);            % 521750 <-- spends time in 63 but never checks in
-p = sortedM(sortedM.id == 1148243,:);
+p = sortedM(sortedM.id == 834723,:);
 c = p(p.type == 'check-in',:);
 
 imagesc([0 max(sortedM.(4))], [0 max(sortedM.(5))], flip(parkmap, 1)); 

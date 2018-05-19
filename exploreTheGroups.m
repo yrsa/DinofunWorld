@@ -9,7 +9,7 @@ sortedM = sortrows(M, 2);
 %p = sortedM(sortedM.id == cell2mat(entryPeople{16,1}),:);    %change person here
 %p = sortedM(sortedM.id == 521750,:);            % 521750 <-- spends time in 63 but never checks in
 %p = sortedM(sortedM.id == 1148243,:);
-p = sortedM(sortedM.id == cell2mat(entryGoer{16,1}),:);
+p = sortedM(sortedM.id == cell2mat(entryGoer{2,1}),:);
 c = p(p.type == 'check-in',:);
 
 imagesc([0 99], [0 99], flip(parkmap, 1)); 
@@ -25,7 +25,7 @@ hold on;
 %     set(gca,'ydir','normal');
 %     pause(0.08);
 % end
-plot(co.(4),co.(5),'b-','linewidth',1.5);
+plot(p.(4),p.(5),'b-','linewidth',1.5);
 plot(c.(4),c.(5),'g*','linewidth',1.5);
 
 set(gca,'ydir','normal');
@@ -80,3 +80,32 @@ entryGoerThatReturnsSat = [entryGoerThatReturnsSat; co];
 %%
 %entryGoerThatReturnsSun = table;
 entryGoerThatReturnsSun = [entryGoerThatReturnsSun; co];
+
+%% Thrill Junkies
+% do they come back saturday and sunday?
+
+[wsize ~] = size(FriSatSun);
+
+friSatTable  = table;
+%temp = table;
+
+for i = 1:wsize
+    
+    temp = thrillJunkie(cell2mat(thrillJunkie.id) == FriSatSun(i),:);
+    friSatTable = [friSatTable; temp];
+    
+end
+
+%% 
+
+[wsize ~] = size(onlyFriSat);
+
+friSatTable  = table;
+%temp = table;
+
+for i = 1:wsize
+    
+    temp = forEveryones(cell2mat(forEveryones.id) == onlyFriSat(i),:);
+    friSatTable = [friSatTable; temp];
+    
+end

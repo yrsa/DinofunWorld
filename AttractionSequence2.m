@@ -13,8 +13,14 @@ function ride = AttractionSequence2(seq, attractions)
  
          end
    else
-       tempride = attractions(attractions.xpos == evaluated_seq(1,1) & attractions.ypos == evaluated_seq(1,2),:);
-       ride = [ride; tempride];
+       if row == 0
+           
+           %do nothing
+       else
+       
+           tempride = attractions(attractions.xpos == evaluated_seq(1,1) & attractions.ypos == evaluated_seq(1,2),:);
+           ride = [ride; tempride];
+       end
        %disp("Number of rides: " + height(ride));
     end
 end
