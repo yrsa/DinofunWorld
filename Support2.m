@@ -15,9 +15,13 @@ load 'attractions.mat';
 
 %find the positions corresponding to the items
 
+if(iscell(items))
+    items = items{1};
+end
 if(ischar(items))
    items = convertCharsToStrings(items); 
 end
+
 
 positions = zeros(length(items), 2);
 for i=1:length(items)
