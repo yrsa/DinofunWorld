@@ -9,6 +9,21 @@ load 'fri_groups.mat';
 load 'sat_groups.mat';
 load 'sun_groups.mat';
 
+%%
+groups = [fri_groups; sat_groups; sun_groups];
+
+
+%% Find all large groups with more than 12 people
+
+% large_group_fri = FindLargeGroup(fri_groups, 12);
+% large_group_sat = FindLargeGroup(sat_groups, 12);
+% large_group_sun = FindLargeGroup(sun_groups, 12);
+
+%% PlotPath.
+% load attractions.mat
+% 
+% person = friday(friday.id == 534277,:);
+%  PlotPath(friday, person);
 
 %% Try adding the sequences containing the same rides into 1 table.
 % End result:
@@ -26,6 +41,9 @@ load 'sun_groups.mat';
 % save('fri_condensed.mat', 'fri_condensed');
 % save('sat_condensed.mat', 'sat_condensed');
 % save('sun_condensed.mat', 'sun_condensed');
+
+
+
 
 %% Find which type of attractions one group goes to
 load('attractions.mat')
@@ -257,7 +275,3 @@ for i = 1:wsize
     
 end
 
-sortedEntries = sortrows(PeopleThatEntriesManyTimes, 1);
-sortedEntries2 = sortrows(friSatTable, 1);
-
-isequal(sortedEntries, sortedEntries2)

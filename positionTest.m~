@@ -1,0 +1,40 @@
+%% Okay, we want to find out who has been staying for some time at the Beer garden. How to do it?
+
+% Beer gardens position:
+% 21,33
+
+% Search all data and save those who have movement data that is more than
+% one at 21,33
+parkmap = imread('Auxiliary Files/Park Map.jpg');
+M = friday;
+sortedM = sortrows(M, 2);
+
+q = sortedM(sortedM.type == "movement",:);
+c = q(q.(4) == 21,:);
+c = c(c.(5) == 33,:);
+
+beerGardenPeople = unique(c.(2));       % they have been at the beerGarden
+                                        % now we need to filter out those
+                                        % who have stayed there a longer
+                                        % time
+
+BGPeople = table;
+%it has an id, and for how many recorded slots it has been at the garden
+BGId = beerGardenPeople(1);
+
+BGPeople.id = BGId;
+counter = 1;
+
+% loop through c (with help from BeerGardenPeople
+[BGPsize, ~] = size(beerGardenPeople);
+for i = 2:BGPsize
+
+    % fetch the id
+    tempID = beerGardenPeople(i);
+    
+    if tempID ~= BGId
+
+    % look at how many 
+
+
+end

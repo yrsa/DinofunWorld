@@ -53,7 +53,7 @@ sun941 = [69 2 31 29 6 81 5 6 4 2 28 7 5 3 8 4 24 5 29 2 1 7];
 % size(sun941)
 
 %hist(fri941, 87)
-%hist(sat941, 87)
+hist(sat941, 87)
 %hist(sun941, 87)
 
 % the histogram does not work as I want them to. Can we do this
@@ -69,6 +69,7 @@ satidSeq = cell2mat(satidSeq);
 sunidSeq = sunVisits.(2)(1);
 sunidSeq = cell2mat(sunidSeq);
 
+
 idstr = idSeq{1};
 fride = AttractionSequence2(fridSeq, attractions);
 satride = AttractionSequence2(satidSeq, attractions);
@@ -83,9 +84,9 @@ imagesc([0 100], [0 100], flip(parkmap, 1));
 hold on;
 
 % Plot everything directly
-plot(fride.xpos, fride.ypos, 'bx','MarkerSize',10);
-plot(satride.xpos, satride.ypos, 'go','MarkerSize',10);
-plot(sunride.xpos, sunride.ypos, 'm+','MarkerSize',10);
+plot(fride.xpos, fride.ypos, 'bx','linewidth',1.5);
+plot(satride.xpos, satride.ypos, 'go','linewidth',1.5);
+plot(sunride.xpos, sunride.ypos, 'rl','linewidth',1.5);
 
 %end
 
