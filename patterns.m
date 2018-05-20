@@ -47,17 +47,17 @@ groups = [fri_groups; sat_groups; sun_groups];
 
 %% Find which type of attractions one group goes to
 load('attractions.mat')
-load('sat_condensed.mat')
+load('fri_condensed.mat')
 
 % get one group
-FriTypeGroup = sat_condensed;       % copy to later add personType
+FriTypeGroup = fri_condensed;       % copy to later add personType
 %FriTypeGroup.personType = "";
-[friGroupSize, ~] = size(sat_condensed);
+[friGroupSize, ~] = size(fri_condensed);
 
 for i = 1:friGroupSize
     [smallGroupSize, ~] = size(FriTypeGroup{i,1});
     for j = 1:smallGroupSize
-        friGroup = sat_condensed{i,1}.(2)(j);
+        friGroup = fri_condensed{i,1}.(2)(j);
         
         friGroup = cell2mat(friGroup);
         
@@ -164,16 +164,16 @@ end
 
 %% Look att different entryPeople
 parkmap = imread('Auxiliary Files/Park Map.jpg');
-M = sunday;
+M = saturday;
 sortedM = sortrows(M, 2);
 
 
 %p = sortedM(sortedM.id == cell2mat(entryPeople{16,1}),:);    %change person here
 %p = sortedM(sortedM.id == 521750,:);            % 521750 <-- spends time in 63 but never checks in
-p = sortedM(sortedM.id == 834723,:);
+p = sortedM(sortedM.id == 1980990,:);
 c = p(p.type == 'check-in',:);
 
-imagesc([0 max(sortedM.(4))], [0 max(sortedM.(5))], flip(parkmap, 1)); 
+imagesc([0 99], [0 99], flip(parkmap, 1)); 
 hold on;
 
 [psize, ~] = size(p);
@@ -193,7 +193,7 @@ set(gca,'ydir','normal');
 
 %%
 figure
-plot(co.Timestamp, co.X);
+plot(p.Timestamp, p.Y);
 
 
 % %% Plot the movements for all person in a group
@@ -275,3 +275,7 @@ for i = 1:wsize
     
 end
 
+sortedEntries = sortrows(PeopleThatEntriesManyTimes, 1);
+sortedEntries2 = sortrows(friSatTable, 1);
+
+isequal(sortedEntries, sortedEntries2)

@@ -13,7 +13,7 @@ parkmap = imread('Auxiliary Files/Park Map.jpg');
 %imshow(parkmap) 
 
 %% sort sunday data on the rows
-M = friday;
+M = sunday;
 sortedM = sortrows(M, 2);
 
 Ids = unique(sortedM.(2));
