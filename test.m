@@ -1,98 +1,98 @@
 %% Apriori test
 load 'MatlabData/friday.mat';
+load 'MatlabData/saturday.mat';
+load 'MatlabData/sunday.mat';
 
 smalldata = friday(1:1000,:);
 
-data = friday;
+ids1 = friday.id;
+ids1 = unique(ids1);
 
-ids = data.id;
-ids = unique(ids);
-nr_ids = length(ids);
+ids2 = saturday.id;
+ids2 = unique(ids2);
+
+ids3 = sunday.id;
+ids3 = unique(ids3);
+
 
 % %% Create a sequence table
-%  seq_table = CreateSeqTable(ids,data);
+% friday_sequences = CreateSeqTable(ids1,friday);
+% saturday_sequences = CreateSeqTable(ids2,saturday);
+% sunday_sequences = CreateSeqTable(ids3,sunday);
+
+load 'fs.mat';
+load 'ss.mat';
+load 'sss.mat';
 
 %%
-% e = Apriori(seq_table);
+fri = Translate(friday_sequences);
+sat = Translate(saturday_sequences);
+sun = Translate(sunday_sequences);
 
-%% Define the itemset (ride names)
-load attractions.mat;
+%% translate
+t_fri = FreqMat(fri);
+t_sat = FreqMat(sat);
+t_sun = FreqMat(sun);
 
-itemsets1 = attractions.name;
-itemsets1 = array2table(itemsets1);
-itemsets1.Properties.VariableNames = {'name'};
+%%
+load 'attractions.mat';
+minSup = 0.25;
+minConf = 0.7;
+nRules = 100;
+sortFlag = 1;
+fname1 = 'FridayRules';
+fname2 = 'SaturdayRules';
+fname3 = 'SundayRules';
+labels = attractions.name';
 
 
-%% calculate the support for each item.
+[Rules1 FreqItemsets1] = findRules(t_fri, minSup, minConf, nRules, sortFlag, labels, fname1);
+[Rules2 FreqItemsets2] = findRules(t_sat, minSup, minConf, nRules, sortFlag, labels, fname2);
+[Rules3 FreqItemsets3] = findRules(t_sun, minSup, minConf, nRules, sortFlag, labels, fname3);
 
-times_visited = zeros(height(itemsets1), 1);
-support = zeros(height(itemsets1),1); % array to store supports
+%%
+itemsets = FreqItemsets1{3};
+set = itemsets(3,:);
 
+% labels(set(1))
+% labels(set(2))
+% labels(set(3))
+%%
+attrnrs = attractions.attrNr;
+id = friday_sequences.id;
 
-for i=1:height(itemsets1)
-    item = itemsets1.name(i);
-    [t, s] = Support2(item, seq_table); %calculate support one item at a time 
-    times_visited(i) = t;
-    support(i) = s;
-end
+c = [id fri];
 
-% add the support to the table
-times_visited = array2table(times_visited);
-support = array2table(support);
-itemsets1 = [itemsets1 times_visited support];
+T = cell2table(c);
+headers = {'id', 'sequence'};
+T.Properties.VariableNames = headers;
 
-% Remove items that do not meet the treshold
-threshold = 0.5;
-delete = itemsets1.support < threshold;
-itemsets1(delete,:) = [];
+[g g2] = FindGroupsByRides(set, T);
 
-%% Calculate the new itemsets from the combinations
+%% 
+person = friday(friday.id == g(679),:);
+person2 = friday(friday.id == g(3),:);
 
-headers = {'name'};
-d = cell(1,1);
-combinations = cell2table(d);
-combinations.Properties.VariableNames = headers;
-
-for i=1:height(itemsets1)-1
-    row = (itemsets1(i,:));
-    name1 = row.name(1);
-    combined_names = name1;
-    
-    for j=i+1:height(itemsets1)
-        row2 = (itemsets1(j,:));
-        name2 = row2.name(1);
-        combined_names = [combined_names; name2];
-        combination = {combined_names};
-        combrow = cell2table(combination);
-        combrow.Properties.VariableNames = headers;
-        combinations = [combinations; combrow];   
-    end
-end
-
-combinations(1,:) = []; %delete the empty row.
-
-%% calculate confidence
-confidence = zeros(height(combinations), 1);
-for i=1:height(combinations)
-    combo = combinations.names(i);
-    combo = combo{1};
-    [row ~] = size(combo);
-    
-    A = combo; %all items
-    B = combo(1:row-1,:); %all items except the last
-    
-    %find support
-    [A_times_visited, A_support] = Support2(A, seq_table);
-    [B_times_visited, B_support] = Support2(B, seq_table);
-    
-    confidence(i) = A_support / B_support;
+PlotPath(friday, person)
+figure
+PlotPath(friday, person2)
+%% Find those that do not use as popular combination
+T2 = [];
+for i=1:length(g)
+    row = find(friday.id == g(i));
+    T2 = [T2;row];
     
 end
-confid = Confidence(combinations, seq_table);
 
-%% Calculate lift
+%%
+e = friday(T2, :);
+h = setdiff(friday, e);
 
+%% 
+person = h(h.id == g2(67),:);
+person2 = h(h.id == g2(3),:);
 
-
-
+PlotPath(h, person)
+figure
+PlotPath(h, person2)
 

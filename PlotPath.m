@@ -13,17 +13,18 @@ hold on;
 [psize, ~] = size(p);
 
 % Plot in time
-for i=1:psize
-
-    plot(p.(4)(1:i),p.(5)(1:i),'b-','linewidth',1.5);
-    % set the y-axis back to normal.
-    set(gca,'ydir','normal');
-    pause(0.1);
-    
-end
+% for i=1:psize
+% 
+%     plot(p.(4)(1:i),p.(5)(1:i),'b-','linewidth',1.5);
+%     % set the y-axis back to normal.
+%     set(gca,'ydir','normal');
+%     pause(0.1);
+%     
+% end
 
 % Plot everything directly
-% plot(p.(4),p.(5),'b-','linewidth',1.5);
+plot(p.(4),p.(5),'b-','linewidth',1.5);
+set(gca,'ydir','normal');
 % plot(q.(4),q.(5),'g-','linewidth',1.5);
 
 % plot(c.(4),c.(5),'r*','linewidth',1.5);   % p's check-in

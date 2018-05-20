@@ -1,0 +1,4 @@
+Rule   (Support, Confidence) 
+Keimosaurus Chase,Atmosfear -> Wrightiraptor Mountain  (26.3141%, 70.6153%)
+Auvilotops Express,Keimosaurus Chase -> Wrightiraptor Mountain  (25.4718%, 70.4791%)
+Auvilotops Express,Atmosfear -> Wrightiraptor Mountain  (25.1443%, 70.9819%)
