@@ -147,30 +147,33 @@ for i = 1:groupSize
         
         rides = AttractionSequence2(groupie, attractions);
         %personType = PercentageVisitedAttractions(groupie, attractions);
-        entries = rides(rides.type == 'Entry',:);
-        nrOfEntries = height(entries);
         
-        if (height(entries) > 1) || (height(entries) == 1 && height(rides) == 1) 
-            
-            entryTemp.id = FriTypeGroup{i,1}.(1)(j);
-            entryTemp.sequence = FriTypeGroup{i,1}.(2)(j);
-            entryTemp.personType = FriTypeGroup{i,1}.(3)(j);
-            entryTemp.nrInchecked = nrOfEntries;    %number of times they checked in
-            entryPeople = [entryPeople; entryTemp];
+        if(height(rides) > 0)
+
+            entries = rides(rides.type == 'Entry',:);
+            nrOfEntries = height(entries);
+
+            if (height(entries) > 1) || (height(entries) == 1 && height(rides) == 1) 
+
+                entryTemp.id = FriTypeGroup{i,1}.(1)(j);
+                entryTemp.sequence = FriTypeGroup{i,1}.(2)(j);
+                entryTemp.personType = FriTypeGroup{i,1}.(3)(j);
+                entryTemp.nrInchecked = nrOfEntries;    %number of times they checked in
+                entryPeople = [entryPeople; entryTemp];
+            end
         end
-        
     end
 end
 
 %% Look att different entryPeople
 parkmap = imread('Auxiliary Files/Park Map.jpg');
-M = saturday;
+M = friday;
 sortedM = sortrows(M, 2);
 
 
 %p = sortedM(sortedM.id == cell2mat(entryPeople{16,1}),:);    %change person here
 %p = sortedM(sortedM.id == 521750,:);            % 521750 <-- spends time in 63 but never checks in
-p = sortedM(sortedM.id == 1980990,:);
+p = sortedM(sortedM.id == 521750,:);
 c = p(p.type == 'check-in',:);
 
 imagesc([0 99], [0 99], flip(parkmap, 1)); 

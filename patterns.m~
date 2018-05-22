@@ -47,17 +47,17 @@ groups = [fri_groups; sat_groups; sun_groups];
 
 %% Find which type of attractions one group goes to
 load('attractions.mat')
-load('fri_condensed.mat')
+load('sun_condensed.mat')
 
 % get one group
-FriTypeGroup = fri_condensed;       % copy to later add personType
+FriTypeGroup = sun_condensed;       % copy to later add personType
 %FriTypeGroup.personType = "";
-[friGroupSize, ~] = size(fri_condensed);
+[friGroupSize, ~] = size(sun_condensed);
 
 for i = 1:friGroupSize
     [smallGroupSize, ~] = size(FriTypeGroup{i,1});
     for j = 1:smallGroupSize
-        friGroup = fri_condensed{i,1}.(2)(j);
+        friGroup = sun_condensed{i,1}.(2)(j);
         
         friGroup = cell2mat(friGroup);
         
@@ -136,29 +136,32 @@ end
 entryPeople = table;
 entryTemp = table;
 
-checkGroup = fri_condensed;       % copy to later add personType
+checkGroup = sun_condensed;       % copy to later add personType
 [groupSize, ~] = size(checkGroup);
 
 for i = 1:groupSize
     [smallGroupSize, ~] = size(checkGroup{i,1});
     for j = 1:(smallGroupSize)
-        groupie = fri_condensed{i,1}.(2)(j);
+        groupie = sun_condensed{i,1}.(2)(j);
         groupie = cell2mat(groupie);
         
         rides = AttractionSequence2(groupie, attractions);
         %personType = PercentageVisitedAttractions(groupie, attractions);
-        entries = rides(rides.type == 'Entry',:);
-        nrOfEntries = height(entries);
         
-        if (height(entries) > 1) || (height(entries) == 1 && height(rides) == 1) 
-            
-            entryTemp.id = FriTypeGroup{i,1}.(1)(j);
-            entryTemp.sequence = FriTypeGroup{i,1}.(2)(j);
-            entryTemp.personType = FriTypeGroup{i,1}.(3)(j);
-            entryTemp.nrInchecked = nrOfEntries;    %number of times they checked in
-            entryPeople = [entryPeople; entryTemp];
+        if(height(rides) > 0)
+
+            entries = rides(rides.type == 'Entry',:);
+            nrOfEntries = height(entries);
+
+            if (height(entries) > 1) || (height(entries) == 1 && height(rides) == 1) 
+
+                entryTemp.id = FriTypeGroup{i,1}.(1)(j);
+                entryTemp.sequence = FriTypeGroup{i,1}.(2)(j);
+                entryTemp.personType = FriTypeGroup{i,1}.(3)(j);
+                entryTemp.nrInchecked = nrOfEntries;    %number of times they checked in
+                entryPeople = [entryPeople; entryTemp];
+            end
         end
-        
     end
 end
 
@@ -170,7 +173,7 @@ sortedM = sortrows(M, 2);
 
 %p = sortedM(sortedM.id == cell2mat(entryPeople{16,1}),:);    %change person here
 %p = sortedM(sortedM.id == 521750,:);            % 521750 <-- spends time in 63 but never checks in
-p = sortedM(sortedM.id == 1980990,:);
+p = sortedM(sortedM.id == 1392457,:);
 c = p(p.type == 'check-in',:);
 
 imagesc([0 99], [0 99], flip(parkmap, 1)); 
@@ -275,3 +278,7 @@ for i = 1:wsize
     
 end
 
+sortedEntries = sortrows(PeopleThatEntriesManyTimes, 1);
+sortedEntries2 = sortrows(friSatTable, 1);
+
+isequal(sortedEntries, sortedEntries2)
